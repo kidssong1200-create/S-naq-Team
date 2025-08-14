@@ -1,1 +1,1 @@
-# S-naq-Team
+# Sinaq-Team
