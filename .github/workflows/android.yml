@@ -1,0 +1,33 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository-ni yüklə
+        uses: actions/checkout@v3
+
+      - name: JDK 17 quraşdır
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Gradle icazələrini ver
+        run: chmod +x ./gradlew
+
+      - name: APK-ni build et
+        run: ./gradlew assembleDebug
+
+      - name: APK-ni yüklə
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
